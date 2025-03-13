@@ -1,0 +1,40 @@
+[33m16c468b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: rebase (finish): returning to refs/heads/main
+[33m16c468b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{1}: rebase (pick): feat(auth): implement authentication system (#4)
+[33maadc73a[m HEAD@{2}: rebase (pick): chore: add application.example.properties as reference
+[33m85a7b9e[m HEAD@{3}: rebase (reword): chore: setup initial project structure
+[33m755fae0[m HEAD@{4}: rebase: fast-forward
+[33m1caf2eb[m HEAD@{5}: rebase (start): checkout 1caf2eb699b4e3befaa5d870a88b73eb57560bf0
+[33m1b278e3[m HEAD@{6}: rebase (finish): returning to refs/heads/main
+[33m1b278e3[m HEAD@{7}: rebase (pick): feat(auth): implement authentication system (#4)
+[33mabf232f[m HEAD@{8}: rebase (pick): chore: add application.example.properties as reference
+[33m755fae0[m HEAD@{9}: rebase (reword): chore: setup initial project structure
+[33m291f469[m HEAD@{10}: rebase: fast-forward
+[33m9dfe878[m HEAD@{11}: rebase (start): checkout 9dfe878ee3b85a85355f4bbde1940d238e8d36a3
+[33mc008312[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{12}: rebase (finish): returning to refs/heads/main
+[33mc008312[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{13}: rebase: fast-forward
+[33ma7a551e[m HEAD@{14}: rebase: fast-forward
+[33m291f469[m HEAD@{15}: rebase: fast-forward
+[33m74ade5b[m HEAD@{16}: rebase (start): checkout 74ade5bc67fd47af435a8b609a246e5260e0898e
+[33mc008312[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{17}: pull origin main: Fast-forward
+[33ma7a551e[m HEAD@{18}: checkout: moving from develop to main
+[33m5ac8d69[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{19}: pull origin develop: Fast-forward
+[33maf7a3bf[m HEAD@{20}: checkout: moving from feat/authentication to develop
+[33m277770a[m[33m ([m[1;31morigin/feat/authentication[m[33m, [m[1;32mfeat/authentication[m[33m)[m HEAD@{21}: checkout: moving from 277770a911776e58f7d34ba89e437be4a3fb93c5 to feat/authentication
+[33m277770a[m[33m ([m[1;31morigin/feat/authentication[m[33m, [m[1;32mfeat/authentication[m[33m)[m HEAD@{22}: checkout: moving from feat/security to 277770a
+[33me2b0af6[m[33m ([m[1;31morigin/feat/security[m[33m, [m[1;32mfeat/security[m[33m)[m HEAD@{23}: checkout: moving from main to feat/security
+[33ma7a551e[m HEAD@{24}: checkout: moving from feat/security to main
+[33me2b0af6[m[33m ([m[1;31morigin/feat/security[m[33m, [m[1;32mfeat/security[m[33m)[m HEAD@{25}: revert: Revert "Add security to application"
+[33m277770a[m[33m ([m[1;31morigin/feat/authentication[m[33m, [m[1;32mfeat/authentication[m[33m)[m HEAD@{26}: checkout: moving from develop to feat/security
+[33maf7a3bf[m HEAD@{27}: revert: revert "Add security to application (#2)"
+[33ma73b30d[m HEAD@{28}: pull origin develop: Fast-forward
+[33mb35679f[m HEAD@{29}: checkout: moving from feat/security to develop
+[33m277770a[m[33m ([m[1;31morigin/feat/authentication[m[33m, [m[1;32mfeat/authentication[m[33m)[m HEAD@{30}: commit: Add security to application
+[33mb35679f[m HEAD@{31}: checkout: moving from develop to feat/security
+[33mb35679f[m HEAD@{32}: commit: Add user repository
+[33m4b1ce32[m HEAD@{33}: pull origin develop: Fast-forward
+[33ma7a551e[m HEAD@{34}: checkout: moving from feat/userDomain to develop
+[33m2225401[m[33m ([m[1;31morigin/feat/userDomain[m[33m)[m HEAD@{35}: commit: Add user domain
+[33ma7a551e[m HEAD@{36}: checkout: moving from develop to feat/userDomain
+[33ma7a551e[m HEAD@{37}: checkout: moving from main to develop
+[33ma7a551e[m HEAD@{38}: commit: chore: add application.example.properties as reference
+[33m291f469[m HEAD@{39}: commit (initial): Initial structure
