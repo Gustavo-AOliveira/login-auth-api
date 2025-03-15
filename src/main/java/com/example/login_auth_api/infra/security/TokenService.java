@@ -5,36 +5,35 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.login_auth_api.domain.user.User;
+import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-
 @Service
 public class TokenService {
 
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String generateToken(User user){
+    public String generateToken(User user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
-            String token = JWT.create()
+            return JWT.create()
                     .withIssuer("login-auth-api")
                     .withSubject(user.getEmail())
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
-            return token;
 
-        } catch (JWTCreationException ex){
-            throw new RuntimeException("Error while authenticanting", ex);
+        } catch (JWTCreationException ex) {
+            throw new RuntimeException("Failed to generate token. Please try again.");
         }
     }
 
-    public String validateToken(String token){
+    public String validateToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
@@ -43,12 +42,14 @@ public class TokenService {
                     .build()
                     .verify(token)
                     .getSubject();
-        }catch (JWTVerificationException ex){
-            return null;
+        } catch (JWTVerificationException ex) {
+            throw new JWTCreationException("invalid token or expired.",ex);
+
         }
     }
 
-    private Instant generateExpirationDate(){
+
+    private Instant generateExpirationDate() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 }
