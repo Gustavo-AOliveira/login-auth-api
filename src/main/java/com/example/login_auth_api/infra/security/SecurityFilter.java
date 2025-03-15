@@ -1,6 +1,8 @@
 package com.example.login_auth_api.infra.security;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.login_auth_api.domain.user.User;
+import com.example.login_auth_api.exception.JwtException;
 import com.example.login_auth_api.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -32,16 +34,13 @@ public class SecurityFilter extends OncePerRequestFilter {
         if (token != null) {
             try {
                 var jwt = tokenService.validateToken(token);
-
-                if (jwt != null) {
-                    User user = userRepository.findByEmail(jwt).orElseThrow(() -> new RuntimeException("Invalid Token"));
+                    User user = userRepository.findByEmail(jwt).orElseThrow(() -> new JWTVerificationException("expired or invalid token"));
                     var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
                     var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-            } catch (RuntimeException ex) {
+            } catch (JWTVerificationException ex) {
+                response.getWriter().write(ex.getMessage());
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                response.getWriter().write("Invalid token");
                 return;
             }
         }
@@ -51,9 +50,12 @@ public class SecurityFilter extends OncePerRequestFilter {
 
 
 
-    private String recoverToken(HttpServletRequest request){
-        var authHeader = request.getHeader("Authorization");
-        if(authHeader == null) return null;
-        return authHeader.replace("Bearer ", "");
+    private String recoverToken(HttpServletRequest request) {
+        String autorizationHeader = request.getHeader("Authorization");
+        if (autorizationHeader != null) {
+            return autorizationHeader.replace("Bearer ", "");
+
+        }
+        return null;
     }
 }
