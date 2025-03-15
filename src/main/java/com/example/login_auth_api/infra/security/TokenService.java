@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.login_auth_api.domain.user.User;
+import com.example.login_auth_api.exception.JwtException;
 import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,8 @@ public class TokenService {
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
 
-        } catch (JWTCreationException ex) {
-            throw new RuntimeException("Failed to generate token. Please try again.");
+        } catch (JWTCreationException exception){
+            throw new RuntimeException("Error while authenticating");
         }
     }
 
@@ -42,9 +43,8 @@ public class TokenService {
                     .build()
                     .verify(token)
                     .getSubject();
-        } catch (JWTVerificationException ex) {
-            throw new JWTCreationException("invalid token or expired.",ex);
-
+        } catch (JWTVerificationException exception) {
+            return null;
         }
     }
 

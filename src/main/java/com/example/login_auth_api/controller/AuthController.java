@@ -5,6 +5,8 @@ import com.example.login_auth_api.dto.login.LoginRequestDTO;
 import com.example.login_auth_api.dto.login.LoginResponseDTO;
 import com.example.login_auth_api.dto.register.RegisterRequestDTO;
 import com.example.login_auth_api.dto.register.RegisterResponseDTO;
+import com.example.login_auth_api.exception.InvalidPasswordException;
+import com.example.login_auth_api.exception.UserNotFoundException;
 import com.example.login_auth_api.infra.security.TokenService;
 import com.example.login_auth_api.repository.UserRepository;
 import com.example.login_auth_api.service.UserService;
@@ -16,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -37,25 +40,15 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid LoginRequestDTO body) {
-        try {
-            User user = userRepository.findByEmail(body.email())
-                    .orElseThrow(() -> new RuntimeException("User not found"));
-            if (passwordEncoder.matches(body.password(), user.getPassword())) {
-                String token = tokenService.generateToken(user);
-                return ResponseEntity.ok(new LoginResponseDTO(user.getName(), token));
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect password, check your password.");
-            }
-        } catch (RuntimeException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-        }
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO body) {
+            String token = userService.authenticateUser(body.email(), body.password());
+                return ResponseEntity.ok(new LoginResponseDTO(body.email(), token));
     }
 
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid RegisterRequestDTO body) {
-        try {
+    public ResponseEntity<RegisterResponseDTO> register(@RequestBody @Valid RegisterRequestDTO body) {
+
             User newUser = new User();
             newUser.setPassword(passwordEncoder.encode(body.password()));
             newUser.setEmail(body.email());
@@ -64,12 +57,18 @@ public class AuthController {
 
             String token = tokenService.generateToken(newUser);
             return ResponseEntity.ok(new RegisterResponseDTO(newUser.getName(), token));
-        } catch (RuntimeException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error by registering user: " + ex.getMessage());
+        }
+        @GetMapping
+        public ResponseEntity<List<User>> getUser(){
+            List<User> userList = userRepository.findAll();
+                return ResponseEntity.status(HttpStatus.OK).body(userList);
+
         }
     }
 
 }
+
+
 
 
 
