@@ -34,10 +34,6 @@ public class AuthController {
     @Autowired
     private TokenService tokenService;
 
-    @GetMapping
-    public String getUser(){
-        return "Sucesso";
-    }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO body) {
@@ -63,11 +59,8 @@ public class AuthController {
             List<User> userList = userRepository.findAll();
                 return ResponseEntity.status(HttpStatus.OK).body(userList);
 
-        }
     }
-
 }
-
 
 
 
