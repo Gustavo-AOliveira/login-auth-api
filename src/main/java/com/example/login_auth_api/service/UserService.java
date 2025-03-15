@@ -5,6 +5,7 @@ import com.example.login_auth_api.exception.InvalidPasswordException;
 import com.example.login_auth_api.exception.UserAlreadyExistsException;
 import com.example.login_auth_api.exception.UserNotFoundException;
 import com.example.login_auth_api.infra.security.TokenService;
+
 import com.example.login_auth_api.exception.UserAlreadyExistsException;
 import com.example.login_auth_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

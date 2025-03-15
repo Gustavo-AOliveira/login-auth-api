@@ -34,14 +34,21 @@ public class AuthController {
     @Autowired
     private TokenService tokenService;
 
+    @GetMapping
+    public String getUser(){
+        return "Sucesso";
+    }
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO body) {
             String token = userService.authenticateUser(body.email(), body.password());
                 return ResponseEntity.ok(new LoginResponseDTO(body.email(), token));
     }
 
+
     @PostMapping("/register")
     public ResponseEntity<RegisterResponseDTO> register(@RequestBody @Valid RegisterRequestDTO body) {
+
             User newUser = new User();
             newUser.setPassword(passwordEncoder.encode(body.password()));
             newUser.setEmail(body.email());
@@ -55,8 +62,11 @@ public class AuthController {
         public ResponseEntity<List<User>> getUser(){
             List<User> userList = userRepository.findAll();
                 return ResponseEntity.status(HttpStatus.OK).body(userList);
+
         }
     }
+
+}
 
 
 
